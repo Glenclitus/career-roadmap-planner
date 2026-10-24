@@ -1,0 +1,42 @@
+/* Global styles for Career Roadmap Planner */
+
+:root {
+  --navy: #0f2044;
+  --teal: #22d3ee;
+  --light-bg: #f4f7fb;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background-color: var(--light-bg);
+  color: #1e293b;
+}
+
+/* Smooth transitions on interactive elements */
+a, button { transition: all 0.2s ease; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+/* Nav link hover in dark sidebar */
+.hover-nav:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: white !important;
+}
+
+/* Progress bar animation */
+.progress-bar { transition: width 0.6s ease; }
+
+/* Form control focus */
+.form-control:focus, .form-select:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 0.2rem rgba(15, 32, 68, 0.15);
+}
+
+/* Card hover base */
+.card { transition: box-shadow 0.2s; }
