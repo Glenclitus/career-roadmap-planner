@@ -13,6 +13,9 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
+// Trust reverse proxy (Render / Cloudflare) so req.secure and forwarded headers work correctly
+app.set('trust proxy', 1);
+
 // ── Security headers ────────────────────────────────────────────────────────
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 

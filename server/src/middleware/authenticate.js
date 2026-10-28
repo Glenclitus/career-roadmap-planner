@@ -2,12 +2,18 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 /**
- * authenticate — verifies the JWT stored in an HttpOnly cookie.
+ * authenticate — verifies the JWT stored in an HttpOnly cookie or Authorization header.
  * Attaches req.user = { id, name, email, role } on success.
  */
 const authenticate = async (req, res, next) => {
   try {
-    const token = req.cookies?.token;
+    let token = req.cookies?.token;
+
+    // Fallback to Bearer token header if cross-site cookie is blocked
+    if (!token && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+      token = req.headers.authorization.split(' ')[1];
+    }
+
     if (!token) {
       return res.status(401).json({ message: 'Not authenticated. Please log in.' });
     }

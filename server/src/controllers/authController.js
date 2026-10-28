@@ -9,7 +9,9 @@ const sendTokenCookie = (res, userId) => {
     expiresIn: '7d',
   });
 
-  const isProd = process.env.NODE_ENV === 'production';
+  const isProd =
+    process.env.NODE_ENV === 'production' ||
+    (process.env.CLIENT_URL && process.env.CLIENT_URL.startsWith('https://'));
 
   res.cookie('token', token, {
     httpOnly: true,
@@ -48,10 +50,11 @@ const register = async (req, res) => {
     // Public registration ALWAYS creates a normal user
     const user = await User.create({ name, email, passwordHash, role: 'user' });
 
-    sendTokenCookie(res, user._id);
+    const token = sendTokenCookie(res, user._id);
 
     return res.status(201).json({
       message: 'Registration successful.',
+      token,
       user: { id: user._id, name: user.name, email: user.email, role: user.role },
     });
   } catch (err) {
@@ -77,10 +80,11 @@ const login = async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password.' });
     }
 
-    sendTokenCookie(res, user._id);
+    const token = sendTokenCookie(res, user._id);
 
     return res.status(200).json({
       message: 'Login successful.',
+      token,
       user: { id: user._id, name: user.name, email: user.email, role: user.role },
     });
   } catch (err) {
@@ -90,7 +94,9 @@ const login = async (req, res) => {
 
 // POST /api/auth/logout
 const logout = (req, res) => {
-  const isProd = process.env.NODE_ENV === 'production';
+  const isProd =
+    process.env.NODE_ENV === 'production' ||
+    (process.env.CLIENT_URL && process.env.CLIENT_URL.startsWith('https://'));
   res.clearCookie('token', {
     httpOnly: true,
     secure: isProd,
