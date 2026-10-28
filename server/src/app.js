@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/authRoutes');
 const roadmapRoutes = require('./routes/roadmapRoutes');
@@ -31,14 +32,31 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // ── Health check ────────────────────────────────────────────────────────────
-app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date() }));
+app.get('/api/health', (req, res) => {
+  const isConnected = mongoose.connection.readyState === 1;
+  res.status(isConnected ? 200 : 503).json({
+    status: isConnected ? 'ok' : 'degraded',
+    database: isConnected ? 'connected' : 'disconnected',
+    timestamp: new Date(),
+  });
+});
+
+// ── Database readiness guard for API routes ────────────────────────────────
+const checkDbConnection = (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({
+      message: 'Database service is currently unavailable. Please check MongoDB Atlas connection and IP whitelist.',
+    });
+  }
+  next();
+};
 
 // ── Routes ──────────────────────────────────────────────────────────────────
-app.use('/api/auth', authRoutes);
-app.use('/api/roadmaps', roadmapRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/progress', progressRoutes);
-app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/auth', checkDbConnection, authRoutes);
+app.use('/api/roadmaps', checkDbConnection, roadmapRoutes);
+app.use('/api/users', checkDbConnection, userRoutes);
+app.use('/api/progress', checkDbConnection, progressRoutes);
+app.use('/api/dashboard', checkDbConnection, dashboardRoutes);
 
 // ── 404 handler ─────────────────────────────────────────────────────────────
 app.use((req, res) => {

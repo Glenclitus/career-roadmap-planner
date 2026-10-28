@@ -39,7 +39,7 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      <div className="d-flex align-items-center justify-content-between mb-4">
+      <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
         <div>
           <h2 className="fw-bold mb-1" style={{ color: '#0f2044' }}>
             Welcome back, {user?.name?.split(' ')[0]} 👋
@@ -55,7 +55,7 @@ export default function AdminDashboard() {
       <div className="row g-4 mb-4">
         {statCards.map((s) => (
           <div key={s.label} className="col-md-4">
-            <div className="card border-0 shadow-sm p-4 d-flex flex-row align-items-center gap-3" style={{ borderRadius: 12 }}>
+            <div className="card border-0 shadow-sm p-3 p-sm-4 d-flex flex-row align-items-center gap-3" style={{ borderRadius: 12 }}>
               <div className="rounded-3 d-flex align-items-center justify-content-center text-white flex-shrink-0"
                 style={{ width: 56, height: 56, backgroundColor: s.color, fontSize: 24 }}>
                 <i className={`bi ${s.icon}`}></i>

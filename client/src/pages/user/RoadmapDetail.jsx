@@ -64,7 +64,7 @@ export default function RoadmapDetail() {
       )}
 
       {/* Header */}
-      <div className="card border-0 shadow-sm p-4 mb-4" style={{ borderRadius: 12, backgroundColor: '#0f2044', color: 'white' }}>
+      <div className="card border-0 shadow-sm p-3 p-sm-4 mb-4" style={{ borderRadius: 12, backgroundColor: '#0f2044', color: 'white' }}>
         <div className="d-flex flex-wrap align-items-start justify-content-between gap-3">
           <div>
             <div className="d-flex gap-2 mb-2">
@@ -103,7 +103,7 @@ export default function RoadmapDetail() {
 
             return (
               <div key={stage._id || si} className="card border-0 shadow-sm mb-3" style={{ borderRadius: 12 }}>
-                <div className="card-body p-4">
+                <div className="card-body p-3 p-sm-4">
                   <div className="d-flex align-items-center gap-3 mb-2">
                     <div className="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white flex-shrink-0"
                       style={{ width: 36, height: 36, backgroundColor: '#0f2044', fontSize: 14 }}>

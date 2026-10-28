@@ -45,7 +45,7 @@ export default function Profile() {
 
       <div className="row">
         <div className="col-md-6">
-          <div className="card border-0 shadow-sm p-4" style={{ borderRadius: 12 }}>
+          <div className="card border-0 shadow-sm p-3 p-sm-4" style={{ borderRadius: 12 }}>
             <div className="d-flex align-items-center gap-3 mb-4">
               <div className="rounded-circle bg-info d-flex align-items-center justify-content-center fw-bold"
                 style={{ width: 64, height: 64, fontSize: 28, color: '#0f2044' }}>

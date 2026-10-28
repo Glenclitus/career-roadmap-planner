@@ -55,7 +55,7 @@ export default function ChangePassword() {
 
       <div className="row">
         <div className="col-md-6">
-          <div className="card border-0 shadow-sm p-4" style={{ borderRadius: 12 }}>
+          <div className="card border-0 shadow-sm p-3 p-sm-4" style={{ borderRadius: 12 }}>
             {serverError && (
               <div className="alert alert-danger py-2"><i className="bi bi-exclamation-circle me-2"></i>{serverError}</div>
             )}

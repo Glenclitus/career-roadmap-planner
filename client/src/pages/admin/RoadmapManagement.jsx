@@ -69,7 +69,7 @@ export default function RoadmapManagement() {
         </div>
       )}
 
-      <div className="d-flex align-items-center justify-content-between mb-4">
+      <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
         <div>
           <h2 className="fw-bold mb-1" style={{ color: '#0f2044' }}>Career Roadmaps</h2>
           <p className="text-muted mb-0">Create and manage all career roadmaps.</p>

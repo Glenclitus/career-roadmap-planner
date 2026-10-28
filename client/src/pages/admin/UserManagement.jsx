@@ -95,7 +95,7 @@ export default function UserManagement() {
         </div>
       )}
 
-      <div className="d-flex align-items-center justify-content-between mb-4">
+      <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
         <div>
           <h2 className="fw-bold mb-1" style={{ color: '#0f2044' }}>User Management</h2>
           <p className="text-muted mb-0">Manage registered users and their roles.</p>

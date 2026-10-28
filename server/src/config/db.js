@@ -8,23 +8,44 @@ try {
   // fallback to system resolver
 }
 
+// Connection event listeners for runtime monitoring
+mongoose.connection.on('connected', () => {
+  console.log(`✅ MongoDB Mongoose connected.`);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.warn(`⚠️  MongoDB connection lost. Reconnecting...`);
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error(`❌ MongoDB connection event error: ${err.message}`);
+});
+
 const connectDB = async () => {
-  if (process.env.MONGODB_URI && process.env.MONGODB_URI.includes('<db_password>')) {
-    console.warn('⚠️  MONGODB_URI still contains the placeholder <db_password>. Please replace it with your MongoDB user password in server/.env.');
-    return;
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error('MONGODB_URI environment variable is missing in server/.env');
   }
-  let retries = 5;
-  while (retries > 0) {
-    try {
-      const conn = await mongoose.connect(process.env.MONGODB_URI);
-      console.log(`✅ MongoDB connected: ${conn.connection.host}`);
-      break;
-    } catch (error) {
-      retries -= 1;
-      console.error(`❌ MongoDB connection error: ${error.message}. Retries left: ${retries}`);
-      if (retries === 0) break;
-      await new Promise(resolve => setTimeout(resolve, 2000));
+
+  if (uri.includes('<db_password>')) {
+    throw new Error('MONGODB_URI contains the placeholder <db_password>. Please update server/.env with your actual database password.');
+  }
+
+  const options = {
+    serverSelectionTimeoutMS: 5000, // Fail fast after 5s rather than default 30s
+  };
+
+  try {
+    const conn = await mongoose.connect(uri, options);
+    console.log(`✅ MongoDB connected successfully to host: ${conn.connection.host}`);
+    return conn;
+  } catch (error) {
+    let helpMsg = error.message;
+    if (error.name === 'MongooseServerSelectionError') {
+      helpMsg += ' (Atlas Network Access: Ensure your current IP address is whitelisted on MongoDB Atlas, or add 0.0.0.0/0 to allow access from anywhere).';
     }
+    console.error(`❌ MongoDB connection error: ${helpMsg}`);
+    throw new Error(helpMsg);
   }
 };
 

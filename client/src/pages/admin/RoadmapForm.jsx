@@ -139,7 +139,7 @@ export default function RoadmapForm() {
 
       <form onSubmit={handleSubmit}>
         {/* Basic Info */}
-        <div className="card border-0 shadow-sm p-4 mb-4" style={{ borderRadius: 12 }}>
+        <div className="card border-0 shadow-sm p-3 p-sm-4 mb-4" style={{ borderRadius: 12 }}>
           <h5 className="fw-bold mb-3" style={{ color: '#0f2044' }}>Basic Information</h5>
           <div className="row g-3">
             <div className="col-md-8">
@@ -184,7 +184,7 @@ export default function RoadmapForm() {
         </div>
 
         {/* Learning Stages */}
-        <div className="card border-0 shadow-sm p-4 mb-4" style={{ borderRadius: 12 }}>
+        <div className="card border-0 shadow-sm p-3 p-sm-4 mb-4" style={{ borderRadius: 12 }}>
           <div className="d-flex align-items-center justify-content-between mb-3">
             <h5 className="fw-bold mb-0" style={{ color: '#0f2044' }}>Learning Stages</h5>
             <button type="button" className="btn btn-sm btn-outline-primary" onClick={addStage}>
@@ -219,11 +219,11 @@ export default function RoadmapForm() {
                   <button type="button" className="btn btn-sm btn-link p-0" style={{ fontSize: 12 }} onClick={() => addTask(si)}>+ Add Task</button>
                 </div>
                 {stage.tasks.map((task, ti) => (
-                  <div key={ti} className="d-flex gap-2 mb-1">
+                  <div key={ti} className="d-flex flex-column flex-sm-row gap-2 mb-2">
                     <input className="form-control form-control-sm" placeholder="Task title *" value={task.title} onChange={(e) => setTask(si, ti, 'title', e.target.value)} />
                     <input className="form-control form-control-sm" placeholder="Description" value={task.description} onChange={(e) => setTask(si, ti, 'description', e.target.value)} />
                     {stage.tasks.length > 1 && (
-                      <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0" onClick={() => removeTask(si, ti)}>
+                      <button type="button" className="btn btn-sm btn-outline-danger align-self-end align-self-sm-center flex-shrink-0" onClick={() => removeTask(si, ti)}>
                         <i className="bi bi-x"></i>
                       </button>
                     )}
@@ -238,11 +238,11 @@ export default function RoadmapForm() {
                   <button type="button" className="btn btn-sm btn-link p-0" style={{ fontSize: 12 }} onClick={() => addResource(si)}>+ Add Resource</button>
                 </div>
                 {stage.resources.map((res, ri) => (
-                  <div key={ri} className="d-flex gap-2 mb-1">
+                  <div key={ri} className="d-flex flex-column flex-sm-row gap-2 mb-2">
                     <input className="form-control form-control-sm" placeholder="Resource title" value={res.title} onChange={(e) => setResource(si, ri, 'title', e.target.value)} />
                     <input className="form-control form-control-sm" placeholder="URL" value={res.url} onChange={(e) => setResource(si, ri, 'url', e.target.value)} />
                     {stage.resources.length > 0 && (
-                      <button type="button" className="btn btn-sm btn-outline-danger flex-shrink-0" onClick={() => removeResource(si, ri)}>
+                      <button type="button" className="btn btn-sm btn-outline-danger align-self-end align-self-sm-center flex-shrink-0" onClick={() => removeResource(si, ri)}>
                         <i className="bi bi-x"></i>
                       </button>
                     )}
@@ -253,7 +253,7 @@ export default function RoadmapForm() {
           ))}
         </div>
 
-        <div className="d-flex gap-3">
+        <div className="d-flex flex-wrap gap-2 gap-sm-3">
           <button type="submit" className="btn btn-primary fw-semibold px-4" style={{ backgroundColor: '#0f2044', borderColor: '#0f2044' }} disabled={saving}>
             {saving ? <><span className="spinner-border spinner-border-sm me-2"></span>Saving…</> : (isEdit ? 'Update Roadmap' : 'Create Roadmap')}
           </button>

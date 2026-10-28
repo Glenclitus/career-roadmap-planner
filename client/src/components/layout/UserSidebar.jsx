@@ -76,7 +76,7 @@ export default function UserSidebar() {
       </div>
 
       {/* Mobile top bar */}
-      <nav className="navbar navbar-dark d-lg-none" style={{ backgroundColor: '#0f2044' }}>
+      <nav className="navbar navbar-dark d-lg-none w-100" style={{ backgroundColor: '#0f2044' }}>
         <div className="container-fluid">
           <span className="navbar-brand fw-bold">
             <i className="bi bi-map me-2 text-info"></i>CareerPath

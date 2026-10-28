@@ -45,7 +45,7 @@ export default function LoginPage() {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-6 col-lg-5">
-            <div className="card border-0 shadow p-4 p-md-5" style={{ borderRadius: 16 }}>
+            <div className="card border-0 shadow p-3 p-sm-4 p-md-5" style={{ borderRadius: 16 }}>
               <div className="text-center mb-4">
                 <i className="bi bi-map fs-1" style={{ color: '#0f2044' }}></i>
                 <h2 className="fw-bold mt-2" style={{ color: '#0f2044' }}>Welcome Back</h2>

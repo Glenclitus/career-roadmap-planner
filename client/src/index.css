@@ -9,6 +9,11 @@
 
 * { box-sizing: border-box; }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   font-family: var(--font);
   background-color: var(--light-bg);
@@ -40,3 +45,34 @@ a, button { transition: all 0.2s ease; }
 
 /* Card hover base */
 .card { transition: box-shadow 0.2s; }
+
+/* Responsive text wrapping and overflow prevention */
+.text-break-word,
+p, h1, h2, h3, h4, h5, h6,
+table td, table th,
+.card-title, .card-text {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile responsive typography adjustments */
+@media (max-width: 575.98px) {
+  .display-4 {
+    font-size: 2.1rem !important;
+  }
+  .display-6 {
+    font-size: 1.6rem !important;
+  }
+  .lead {
+    font-size: 1rem !important;
+  }
+}

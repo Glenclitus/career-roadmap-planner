@@ -90,7 +90,12 @@ const login = async (req, res) => {
 
 // POST /api/auth/logout
 const logout = (req, res) => {
-  res.clearCookie('token', { httpOnly: true, sameSite: 'Lax' });
+  const isProd = process.env.NODE_ENV === 'production';
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? 'None' : 'Lax',
+  });
   return res.status(200).json({ message: 'Logged out successfully.' });
 };
 
@@ -127,8 +132,13 @@ const changePassword = async (req, res) => {
     user.passwordHash = await bcrypt.hash(newPassword, 12);
     await user.save();
 
+    const isProd = process.env.NODE_ENV === 'production';
     // Clear existing token so user must log in again
-    res.clearCookie('token', { httpOnly: true, sameSite: 'Lax' });
+    res.clearCookie('token', {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: isProd ? 'None' : 'Lax',
+    });
 
     return res.status(200).json({ message: 'Password changed successfully. Please log in again.' });
   } catch (err) {

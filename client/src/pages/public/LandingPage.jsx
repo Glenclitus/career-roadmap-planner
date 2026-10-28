@@ -56,7 +56,7 @@ export default function LandingPage() {
             <div className="col-lg-6">
               <div className="row g-3">
                 {careerTracks.map((track) => (
-                  <div key={track.title} className="col-6">
+                  <div key={track.title} className="col-12 col-sm-6">
                     <div
                       className="p-3 rounded-3 d-flex align-items-center gap-3"
                       style={{ backgroundColor: 'rgba(255,255,255,0.07)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.1)' }}
