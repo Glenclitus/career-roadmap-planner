@@ -31,15 +31,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// ── Health check ────────────────────────────────────────────────────────────
-app.get('/api/health', (req, res) => {
+// ── Health check & Root info ───────────────────────────────────────────────
+const handleHealth = (req, res) => {
   const isConnected = mongoose.connection.readyState === 1;
   res.status(isConnected ? 200 : 503).json({
     status: isConnected ? 'ok' : 'degraded',
+    message: 'Career Roadmap Planner API is running',
     database: isConnected ? 'connected' : 'disconnected',
     timestamp: new Date(),
   });
-});
+};
+
+app.get('/', handleHealth);
+app.get('/health', handleHealth);
+app.get('/api/health', handleHealth);
 
 // ── Database readiness guard for API routes ────────────────────────────────
 const checkDbConnection = (req, res, next) => {
