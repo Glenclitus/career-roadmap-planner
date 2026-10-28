@@ -14,15 +14,24 @@ const errorHandler = require('./middleware/errorHandler');
 const app = express();
 
 // ── Security headers ────────────────────────────────────────────────────────
-app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 
 // ── CORS ────────────────────────────────────────────────────────────────────
+const allowedOrigins = [
+  'https://career-roadmap-planner-pi.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:3000',
+  process.env.CLIENT_URL,
+]
+  .filter(Boolean)
+  .map((url) => url.replace(/\/$/, ''));
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: allowedOrigins,
     credentials: true,           // allow cookies to be sent cross-origin
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
